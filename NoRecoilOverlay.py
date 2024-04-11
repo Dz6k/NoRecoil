@@ -1,5 +1,5 @@
 import wx
-import keyboard
+import keyboard, mouse
 import win32api
 import random
 import threading
