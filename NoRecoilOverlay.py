@@ -1,10 +1,7 @@
 import wx
-<<<<<<< HEAD
 import keyboard
 import mouse
-=======
 import keyboard, mouse
->>>>>>> 73a841067bdf0b0ebd985759cc9e52f1084ef8c6
 import win32api
 import random
 import threading
