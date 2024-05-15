@@ -1,12 +1,13 @@
+import pyautogui as pa
 import wx
 import keyboard
-import mouse
 import win32api
+import win32con
 import random
 import threading
 from time import sleep
-import win32con
-
+from mousekey import MouseKey
+mkey = MouseKey()
 #################################################################################################################################################
 #                                                                                                                                               #
 #                                                                                                                                               #
@@ -19,6 +20,9 @@ import win32con
 class Mouse:
     RIGHTC = 0x02  # right click
     LEFTC = 0x01  # left click
+    MIDDLEC = 0x04  # middle click
+    KEYUP = 0x0004  # key up
+    KEYDOWN = 0x0000  # key donw
 
 
 # Overlay
@@ -111,38 +115,32 @@ class NoRecoil(OverlayMessageBox):
                     else:
                         self.Show(False)
 
-            # run if press left click and right click together
-            if (self.is_leftmouse_down()) and (self.is_rightmouse_down()) and (self._enable):
+            if (self.is_leftmouse_down()) and (self._enable):
                 _offset_const = 100
-                _horizontal_offset = random.randrange(-self._horizontal_range * _offset_const,
-                                                      self._horizontal_range * _offset_const, 1) / _offset_const
-                _vertical_offset = random.randrange(self._min_vertical * _offset_const,
-                                                    self._max_vertical * _offset_const, 1) / _offset_const
+                _horizontal_offset = 0
+                _vertical_offset = random.randrange(3, 5)
+
                 _vertical_offset = self._vertical_o
-                win32api.mouse_event(0x0001, int(
-                    _horizontal_offset), int(_vertical_offset))
-                time_offset = random.randrange(int(self._min_firerate * _offset_const),
-                                               int(self._max_firerate * _offset_const), 1) / _offset_const
-                if not middle_click:
-                    #  USE THIS LINE IF YOU PLAY COD (PING FOR SPOT ENEMYS)
-                    mouse.double_click('middle')
-                    middle_click = True
+                print(int(_horizontal_offset), int(_vertical_offset))
+
+                print(self._vertical_o)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+                win32api.mouse_event(0x0001, 0, 17)
+
+                time_offset = random.randrange(int(0.03),
+                                               int(0.04))
+
                 sleep(time_offset)
-
-            else:
-                middle_click = False
-
-            sleep(0.001)
-    # update overlay
-
-    def update_message(self, event):
-        key_pressed = event.name
-
-        if key_pressed in ['left', 'right', 'up', 'down']:
-
-            sleep(0.15)
-            self.SetSize(70, 18)
-            self.static_text.SetLabel(f"Force: {self._vertical_o}")
 
 
 if __name__ == '__main__':
